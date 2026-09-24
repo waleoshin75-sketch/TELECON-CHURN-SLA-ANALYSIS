@@ -4,20 +4,20 @@
 ---
 
 ## Table of contents
-*   1 Project Overview
-*   2 Dataset Overview
-*   3 Data Quality Assessment
-*   4 Data Cleaning & Error Correction
-*   5 Feature Engineering
-*   6 Data Modeling & Relational Schema
-*   7 Total Revenue, Dataused_GB by Network type
-*   8 Overdue Revenue by complaint category
-*   9 Contract type, Churn rate% Total Revenue
-*   10 Total tickets count
-*   11 Sign up date, sum of dropped call count and sum of Avg Latency_ms
-*   12 Key Findings & Insights
-*   13 Recommendations
-*   14 Conclusion
+*   [1 Project Overview](#1-project-overview)
+*   [2 Dataset Overview](#2-dataset-overview)
+*   [3 Data Quality Assessment](#3-data-quality-assessment)
+*   [4 Data Cleaning & Error Correction](#4-data-cleaning--error-correction)
+*   [5 Feature Engineering](#5-feature-engineering)
+*   [6 Data Modeling & Relational Schema](#6-data-modeling--relational-schema)
+*   [7 Total Revenue, Dataused_GB by Network type](#7-total-revenue-dataused_gb-by-network-type)
+*   [8 Overdue Revenue by complaint category](#8-overdue-revenue-by-complaint-category)
+*   [9 Contract type, Churn rate% Total Revenue](#9-contract-type-churn-rate-total-revenue)
+*   [10 Total tickets count](#10-total-tickets-count)
+*   [11 Sign up date, sum of dropped call count and sum of Avg Latency_ms](#11-sign-up-date-sum-of-dropped-call-count-and-sum-of-avg-latency_ms)
+*   [12 Key Findings & Insights](#12-key-findings--insights)
+*   [13 Recommendations](#13-recommendations)
+*   [14 Conclusion](#14-conclusion)
 
 ---
 
