@@ -1,6 +1,5 @@
 # TELECOM CUSTOMER CHURN ANALYSIS USING POWER BI
 ## A Power BI project Telecom Customer churn, service performance & Degradation Tracker Analysis.
-### Consumer Electronics Retail – Synthetic Electronics Dataset (2026)
 
 ---
 
