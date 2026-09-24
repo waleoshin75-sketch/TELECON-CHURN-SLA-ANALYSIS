@@ -97,6 +97,7 @@ To establish an enterprise data warehouse structure, the cleaned tables were int
 *   Customer_Directory[CustomerID] Connected to Billing_Revenue[CustomerID]
 *   Customer_Directory[CustomerID] Connected to Service_Performance[CustomerID]
 *   Customer_Directory[CustomerID] Connected to Support_Tickets[CustomerID]
+*   
 *   <img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/df056a79-3da9-47ef-b40f-cc96c663df81" />
 
 ---
