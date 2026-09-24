@@ -98,7 +98,7 @@ To establish an enterprise data warehouse structure, the cleaned tables were int
 *   Customer_Directory[CustomerID] Connected to Service_Performance[CustomerID]
 *   Customer_Directory[CustomerID] Connected to Support_Tickets[CustomerID]
 
-*   <img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/1b125a01-14cb-4b59-a325-dcae5c0ba7e5" />
+*   <img width="959" height="503" alt="image" src="https://github.com/user-attachments/assets/d58ff5b5-5820-45dd-b9fb-5b6942493520" />
 
 
 ---
@@ -142,5 +142,5 @@ To audit technical infrastructure health chronologically, dropped call frequenci
 
 ---
 
-## 14 ConclusionThis project successfully demonstrates the execution of a professional business intelligence lifecycle within a telecommunications dataset. By engineering advanced Power Query M-code scripts to untangle corrupted regional logging timestamps, establishing a scalable Star Schema data warehouse, and authoring precise financial DAX measures, this application bridges the gap between infrastructure health and corporate capital retention. The resulting multi-page executive application provides leadership with the clear, auditable insights needed to optimize operational budgets, fix technical network friction points, and eliminate bottom-line cash leaks.
-
+## 14 Conclusion
+This project successfully proves how advanced business intelligence can protect customer retention and recover revenue. By using custom Power Query M-code to fix corrupted dates, building a Star Schema relational data model, and engineering custom financial DAX measures, this application provides executives with the exact insights needed to stop bottom-line revenue leaks and optimize network infrastructure.
