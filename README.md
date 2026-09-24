@@ -142,4 +142,5 @@ To audit technical infrastructure health chronologically, dropped call frequenci
 
 ---
 
-## 14 Conclusion
+## 14 ConclusionThis project successfully demonstrates the execution of a professional business intelligence lifecycle within a telecommunications dataset. By engineering advanced Power Query M-code scripts to untangle corrupted regional logging timestamps, establishing a scalable Star Schema data warehouse, and authoring precise financial DAX measures, this application bridges the gap between infrastructure health and corporate capital retention. The resulting multi-page executive application provides leadership with the clear, auditable insights needed to optimize operational budgets, fix technical network friction points, and eliminate bottom-line cash leaks.
+
