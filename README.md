@@ -97,13 +97,14 @@ To establish an enterprise data warehouse structure, the cleaned tables were int
 *   Customer_Directory[CustomerID] Connected to Billing_Revenue[CustomerID]
 *   Customer_Directory[CustomerID] Connected to Service_Performance[CustomerID]
 *   Customer_Directory[CustomerID] Connected to Support_Tickets[CustomerID]
-   
-*   <img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/df056a79-3da9-47ef-b40f-cc96c663df81" />
+
+*   <img width="959" height="506" alt="image" src="https://github.com/user-attachments/assets/1b125a01-14cb-4b59-a325-dcae5c0ba7e5" />
+
 
 ---
 
 ## 7 Total Revenue, Dataused_GB by Network type
-By mapping our custom Total Revenue measure alongside the raw DataUsed_GB column across network generations, the system generated a side-by-side clustered dual-column chart. This analysis explicitly exposes where user network traffic demands are heaviest compared to financial returns, helping infrastructure teams allocate technical capacity accurately.
+By mapping our custom Total Revenue measure alongside the raw DataUsed_GB metrics across network generations, the system generated a side-by-side clustered dual-column chart. This analysis explicitly exposes where user network traffic demands are heaviest compared to financial returns, helping infrastructure teams allocate technical capacity accurately.
 
 ---
 
