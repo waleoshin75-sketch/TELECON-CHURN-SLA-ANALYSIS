@@ -53,7 +53,21 @@ To restore complete data integrity before connecting the database model, the fol
 *   Problem: Mixed regional date layouts caused standard text-to-date converters to drop records or misread days as months.
 *   Solution: I wrote a custom conditional M-code formula. By implementing list point indicators, the programming steps are forced onto clean, distinct lines as pure text:
 
-try let Parts = Text.Split([SignupDate], "/"), P1 = Number.FromText(Parts{0}), P2 = Number.FromText(Parts{1}), P3 = Number.FromText(Parts{2}) in if Text.Length(Parts{0}) = 4 then #date(P1, P2, P3) else if P1 > 12 then #date(P3, P2, P1) else #date(P3, P1, P2) otherwise null
+try
+    let
+        Parts = Text.Split([SignupDate], "/"),
+        P1 = Number.FromText(Parts{0}),
+        P2 = Number.FromText(Parts{1}),
+        P3 = Number.FromText(Parts{2})
+    in
+        if Text.Length(Parts{0}) = 4 then
+            #date(P1, P2, P3)          // YYYY/MM/DD
+        else if P1 > 12 then
+            #date(P3, P2, P1)          // DD/MM/YYYY — first number can't be a month if >12
+        else
+            #date(P3, P1, P2)          // MM/DD/YYYY — fallback
+otherwise
+    null
 
 
 ### B. Categorical Clean-Up and Merge
