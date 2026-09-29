@@ -1,0 +1,21 @@
+CustomerID,CustomerName,ContractType,Churned
+TEL-1110,Corporate Client A0,Month-to-month,No
+TEL-1111,Corporate Client B1,Two year,Yes
+TEL-1112,Corporate Client C2,Month-to-month,Yes
+TEL-1113,Corporate Client D3,Two year,No
+TEL-1114,Corporate Client E4,Month-to-month,Yes
+TEL-1115,Corporate Client F5,Two year,Yes
+TEL-1116,Corporate Client A6,Month-to-month,No
+TEL-1117,Corporate Client B7,Two year,Yes
+TEL-1118,Corporate Client C8,Month-to-month,Yes
+TEL-1119,Corporate Client D9,Two year,No
+TEL-1120,Corporate Client E10,Month-to-month,Yes
+TEL-1121,Corporate Client F11,Two year,Yes
+TEL-1122,Corporate Client A12,Month-to-month,No
+TEL-1123,Corporate Client B13,Two year,Yes
+TEL-1124,Corporate Client C14,Month-to-month,Yes
+TEL-1125,Corporate Client D15,Two year,No
+TEL-1126,Corporate Client E16,Month-to-month,Yes
+TEL-1127,Corporate Client F17,Two year,Yes
+TEL-1128,Corporate Client A18,Month-to-month,No
+TEL-1129,Corporate Client B19,Two year,Yes
