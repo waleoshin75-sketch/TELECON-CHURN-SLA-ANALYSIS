@@ -19,10 +19,11 @@ Unified billing, network and support data into one Power BI model that links ser
 4. [Data Cleaning and Error Correction](#4-data-cleaning-and-error-correction)
 5. [Feature Engineering and DAX](#5-feature-engineering-and-dax)
 6. [Data Modeling](#6-data-modeling)
-7. [Dashboard Analysis](#7-dashboard-analysis)
-8. [Key Findings and Insights](#8-key-findings-and-isnights)
-9. [Recommendations](#9-recommendations)
-10. [Conclusion](#10-conclusion)
+7. [Business Obejectives](#7-business-objectives)
+8. [Data Visualization and Interpretation](#8-data-visualization-and-interpretation)
+9. [Key Findings and Insights](#8-key-findings-and-isnights)
+10. [Recommendations](#9-recommendations)
+11. [Conclusion](#10-conclusion)
 
 ---
 
@@ -104,7 +105,7 @@ Star schema with `Customer_Directory` as the single dimension and three one-to-m
 
 <img width="959" height="503" alt="Power BI model view showing Customer_Directory connected to Billing_Revenue, Service_Performance and Support_Tickets" src="https://github.com/user-attachments/assets/d58ff5b5-5820-45dd-b9fb-5b6942493520" />
 
-## 7. Dashboard Analysis
+## 7. Business Objectives
 
 | Visual | Measures | Purpose |
 |---|---|---|
@@ -114,20 +115,21 @@ Star schema with `Customer_Directory` as the single dimension and three one-to-m
 | KPI card | Total Tickets | Support volume at a glance |
 | Dual line | Dropped calls and average latency by signup date | Show when service quality degraded |
 
-### Dashboard Preview
+### 8. Data Visualization and Interpretation
 
 **Executive KPIs**
 
-<!-- Drag telecom-executive-kpis.png here while editing this file on GitHub; GitHub will insert the image link. Alt text: Telecom Customer Churn Executive KPIs dashboard -->
+<!-- <img width="2400" height="1350" alt="telecom-executive-kpis" src="https://github.com/user-attachments/assets/a649ebb5-5fb1-458a-b706-10287fcca604" />
+ -->
 
 Total revenue is $44,229 with a 33.17% churn rate. Month-to-month contracts churn at 66.00%.
 
 **Service Performance and SLA Degradation Tracker**
 
-<!-- Drag telecom-business-performance.png here while editing this file on GitHub; GitHub will insert the image link. Alt text: Telecom Business Performance Analysis dashboard with revenue by network type, overdue revenue by complaint category and contract churn -->
+<!-- <img width="2400" height="1350" alt="telecom-business-performance" src="https://github.com/user-attachments/assets/53c63d10-3a1c-4a6a-8a95-23327d0a2616" />
+ -->
 
-
-## 8. Key Findings
+## 9. Key Findings
 
 | Finding | Detail |
 |---|---|
@@ -135,11 +137,11 @@ Total revenue is $44,229 with a 33.17% churn rate. Month-to-month contracts chur
 | Support issues link to cash flow | Billing Issues and Network Outages made up 80 percent of complaints, tied to 7.98 thousand dollars overdue and 9.32 thousand dollars unpaid |
 | Legacy network is the bottleneck | 3G connections showed higher latency and more dropped calls than 4G and 5G |
 
-## 9. Recommendations
+## 10. Recommendations
 1. **Move Month-to-Month customers to annual plans:** offer pricing incentives ahead of the next billing cycle.
 2. **Retire remaining 3G infrastructure:** migrate users to 4G or 5G to remove the source of outages and dropped calls.
 3. **Target collections at billing complaints:** focus recovery on the accounts behind the 7.98 thousand dollar overdue balance.
 
-## 10. Conclusion
+## 11. Conclusion
 Fixing the date and category errors in Power Query, modeling the tables as a star schema and writing explicit DAX measures made it possible to trace service failures to their financial impact.
 
