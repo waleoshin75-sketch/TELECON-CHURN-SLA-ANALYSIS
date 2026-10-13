@@ -127,7 +127,7 @@ Total revenue is $44,229 with a 33.17% churn rate. Month-to-month contracts chur
 
 <img width="2400" height="1350" alt="telecom-business-performance" src="https://github.com/user-attachments/assets/913af907-bb45-4aa1-8c9e-9c8a7b5b47ec" />
 
-## 9. Key Findings
+## 9. Key Findings and Insights
 
 | Finding | Detail |
 |---|---|
