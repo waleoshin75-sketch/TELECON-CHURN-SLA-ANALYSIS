@@ -1,71 +1,57 @@
-# Telecom Customer Churn Analysis Using Power BI
+# Telecom Customer Churn Analytics Using Power BI
 
-## A Power BI Project: Telecom Customer Churn, Service Performance and Degradation Tracker Analysis
+**Power Query M | DAX | Star schema | Churn, revenue leakage and service degradation tracking**
+
+Unified billing, network and support data into one Power BI model that links service failures to unpaid revenue and customer churn.
+
+| | |
+|---|---|
+| **Tools** | Power BI Desktop, Power Query (M), DAX |
+| **Data** | 4 related tables (1 dimension, 3 fact tables) |
+| **Deliverable** | Multi-page dashboard with five reusable DAX measures |
 
 ---
 
 ## Table of Contents
-
-- [1 Project Overview](#1-project-overview)
-- [2 Dataset Overview](#2-dataset-overview)
-- [3 Data Quality Assessment](#3-data-quality-assessment)
-- [4 Data Cleaning & Error Correction](#4-data-cleaning--error-correction)
-- [5 Feature Engineering](#5-feature-engineering)
-- [6 Data Modeling & Relational Schema](#6-data-modeling--relational-schema)
-- [7 Total Revenue, DataUsed_GB by Network Type](#7-total-revenue-dataused_gb-by-network-type)
-- [8 Overdue Revenue by Complaint Category](#8-overdue-revenue-by-complaint-category)
-- [9 Contract Type, Churn Rate % and Total Revenue](#9-contract-type-churn-rate-total-revenue)
-- [10 Total Tickets Count](#10-total-tickets-count)
-- [11 Signup Date, Dropped Call Count and Average Latency](#11-sign-up-date-sum-of-dropped-call-count-and-sum-of-avg-latency_ms)
-- [12 Key Findings & Insights](#12-key-findings--insights)
-- [13 Recommendations](#13-recommendations)
-- [14 Conclusion](#14-conclusion)
+1. [Project Overview](#1-project-overview)
+2. [Dataset Overview](#2-dataset-overview)
+3. [Data Quality Assessment](#3-data-quality-assessment)
+4. [Data Cleaning and Error Correction](#4-data-cleaning-and-error-correction)
+5. [Feature Engineering and DAX](#5-feature-engineering-and-dax)
+6. [Data Modeling](#6-data-modeling)
+7. [Data Visualization and Interpretation](#7-data visualization-and-interpretation)
+8. [Key Findings and Insights](#8-key-findings_and_isnights)
+9. [Recommendations](#9-recommendations)
+10. [Conclusion](#10-conclusion)
 
 ---
 
-## 1 Project Overview
+## 1. Project Overview
+Telecom data typically sits in separate billing, network and support systems, which hides how service failures hurt revenue and retention. This project connects the three to a single customer record so leadership can trace a technical fault through to unpaid bills and churn risk.
 
-In large telecom operations, billing systems, network telemetry, and customer service logs tend to live in separate silos. That separation makes it hard to see, in one place, where technical service failures are quietly draining revenue and pushing customers toward the door.
+## 2. Dataset Overview
 
-This project builds a single Power BI dashboard that pulls those three worlds together. Billing, network performance, and support tickets are linked directly to the same customer, so leadership can trace a dropped call or a network outage all the way through to unpaid revenue and churn risk, rather than reading three disconnected reports and guessing at the connection.
+| Table | Type | Contents |
+|---|---|---|
+| `Customer_Directory` | Dimension | Customer profile, signup date, contract type, churn status |
+| `Billing_Revenue` | Fact | Monthly bill, invoice, payment status |
+| `Service_Performance` | Fact | Data usage, dropped calls, latency, network type |
+| `Support_Tickets` | Fact | Complaint category, resolution time, ticket ID |
 
----
+## 3. Data Quality Assessment
 
-## 2 Dataset Overview
+| Issue | Impact |
+|---|---|
+| `SignupDate` mixed three formats (YYYY/MM/DD, DD/MM/YYYY, MM/DD/YYYY) | Standard date conversion failed or misread days as months |
+| Typo split one network type into "4G" and "4G LTE" | Revenue chart showed four bars instead of three generations |
+| Trailing decimals and blank labels | Cluttered matrix and card visuals |
+| Gaps in date keys | Broken segments on trend lines |
 
-The model is built on four related tables, mirroring how a real telecom operator's data warehouse is typically structured.
+## 4. Data Cleaning and Error Correction
 
-| Table | What It Holds |
-| --- | --- |
-| Customer_Directory | Master customer profiles, signup dates, contract type, and churn status |
-| Billing_Revenue | Monthly billing amounts, payment dates, and payment status |
-| Service_Performance | Data usage, dropped call counts, and network latency |
-| Support_Tickets | Customer complaints, resolution time, and ticket category |
+**Mixed date formats:** a custom Power Query column reads each value by structure. A four-digit first segment means year first. A first number above 12 cannot be a month, so it is day first. Anything else falls back to month first. Unreadable values return null instead of breaking the query.
 
-Customer_Directory sits at the center as the single source of truth for who each customer is; the other three tables each describe a different slice of that customer's experience.
-
----
-
-## 3 Data Quality Assessment
-
-Before any chart could be trusted, the raw data needed a proper audit. A few issues stood out immediately:
-
-- **Mixed date formats:** SignupDate mixed three different regional layouts in the same column, YYYY/MM/DD, DD/MM/YYYY, and MM/DD/YYYY, which broke any standard date conversion.
-- **Duplicate categories from typos:** Manual entry errors split what should have been one network type into two, 4G and 4G LTE, artificially inflating the category count.
-- **Formatting noise:** Trailing decimals and blank labels were crowding out visual space across the dashboard grids.
-- **Broken trend lines:** Gaps in the underlying data keys were cutting continuous timelines into disconnected segments on the line charts.
-
----
-
-## 4 Data Cleaning & Error Correction
-
-Two fixes did most of the heavy lifting here, both handled inside Power Query before the model was ever loaded.
-
-### A. Unifying Mixed Date Formats
-
-Since the three date formats in SignupDate couldn't be resolved by a single built-in converter, a custom M function parses each value by structure. If the first segment is four digits long, it's read as year first. Otherwise, if the first number is greater than twelve, it can't be a month, so it's read as day first. Everything else falls back to month first, the most common default.
-
-```m
+```powerquery
 try
     let
         Parts = Text.Split([SignupDate], "/"),
@@ -83,17 +69,11 @@ otherwise
     null
 ```
 
-### B. Merging Duplicate Categories
+**Duplicate category:** a Replace Values step merged "4G LTE" into "4G", restoring three network generations.
 
-The stray "4G LTE" label was collapsed into the standard "4G" value using a simple find-and-replace transformation in Power Query. That one fix took the network type chart from four confusing bars down to the three clean generations it should have shown from the start.
+## 5. Feature Engineering and DAX
 
----
-
-## 5 Feature Engineering
-
-Rather than relying on slow implicit aggregations, five DAX measures were written explicitly to drive every visual in the report.
-
-```dax
+```powerquery
 Total Revenue = SUM(Billing_Revenue[MonthlyBill_USD])
 
 Unpaid Revenue = CALCULATE([Total Revenue], Billing_Revenue[PaymentStatus] = "Unpaid")
@@ -102,7 +82,7 @@ Overdue Revenue = CALCULATE([Total Revenue], Billing_Revenue[PaymentStatus] = "O
 
 Total Tickets = COUNT(Support_Tickets[TicketID])
 
-Churn Rate % = 
+Churn Rate % =
 DIVIDE(
     CALCULATE(COUNT(Customer_Directory[CustomerID]), Customer_Directory[Churned] = "Yes"),
     COUNT(Customer_Directory[CustomerID]),
@@ -110,70 +90,56 @@ DIVIDE(
 ) + 0
 ```
 
-The trailing "+ 0" on Churn Rate % is a small but deliberate fix: it forces DAX to display a genuine 0.00 percent instead of a blank cell whenever a segment has no churned customers, keeping every card and matrix visually consistent.
+The trailing `+ 0` in `Churn Rate %` forces a displayed 0.00 percent instead of a blank cell for segments with no churn, keeping matrix visuals consistent.
 
----
+## 6. Data Modeling
 
-## 6 Data Modeling & Relational Schema
+Star schema with `Customer_Directory` as the single dimension and three one-to-many relationships on `CustomerID`. All three relationships are active.
 
-The four tables were connected in a star schema, with Customer_Directory as the single dimension table and the other three as fact tables joined to it one-to-many on CustomerID.
+| From (many) | To (one) |
+|---|---|
+| `Billing_Revenue[CustomerID]` | `Customer_Directory[CustomerID]` |
+| `Service_Performance[CustomerID]` | `Customer_Directory[CustomerID]` |
+| `Support_Tickets[CustomerID]` | `Customer_Directory[CustomerID]` |
 
-- Customer_Directory\[CustomerID\] to Billing_Revenue\[CustomerID\]
-- Customer_Directory\[CustomerID\] to Service_Performance\[CustomerID\]
-- Customer_Directory\[CustomerID\] to Support_Tickets\[CustomerID\]
+<img width="959" height="503" alt="Power BI model view showing Customer_Directory connected to Billing_Revenue, Service_Performance and Support_Tickets" src="https://github.com/user-attachments/assets/d58ff5b5-5820-45dd-b9fb-5b6942493520" />
 
-This keeps every fact table filtering independently off the same customer record, so a slicer on contract type or churn status correctly filters billing, network, and support data all at once.
+## 7. Dashboard Analysis
 
-![Data model diagram showing Customer_Directory connected to Billing_Revenue, Service_Performance, and Support_Tickets](https://github.com/user-attachments/assets/d58ff5b5-5820-45dd-b9fb-5b6942493520)
+| Visual | Measures | Purpose |
+|---|---|---|
+| Clustered column | Total Revenue, DataUsed_GB by network type | Compare traffic demand against revenue |
+| Donut | Overdue Revenue by complaint category | Link service friction to unpaid balances |
+| Matrix | Contract type, Churn Rate %, Total Revenue | Identify high-risk contract segments |
+| KPI card | Total Tickets | Support volume at a glance |
+| Dual line | Dropped calls and average latency by signup date | Show when service quality degraded |
 
----
+### Dashboard Preview
 
-## 7 Total Revenue, DataUsed_GB by Network Type
+**Executive KPIs**
 
-A clustered column chart plots Total Revenue alongside raw data usage for each network generation. Placing both metrics side by side shows immediately where network demand and financial return are out of step, which is exactly the kind of signal infrastructure teams need when deciding where to invest capacity.
+<!-- Drag telecom-executive-kpis.png here while editing this file on GitHub; GitHub will insert the image link. Alt text: Telecom Customer Churn Executive KPIs dashboard -->
 
----
+Total revenue is $44,229 with a 33.17% churn rate. Month-to-month contracts churn at 66.00%.
 
-## 8 Overdue Revenue by Complaint Category
+**Service Performance and SLA Degradation Tracker**
 
-A donut chart breaks down Overdue Revenue by complaint category, connecting unresolved technical issues directly to unpaid balances. It makes a case that's easy to miss in isolated reports: service friction isn't just a support problem, it's actively blocking cash collection.
+<!-- Drag telecom-business-performance.png here while editing this file on GitHub; GitHub will insert the image link. Alt text: Telecom Business Performance Analysis dashboard with revenue by network type, overdue revenue by complaint category and contract churn -->
 
----
 
-## 9 Contract Type, Churn Rate % and Total Revenue
+## 8. Key Findings
 
-A matrix visual cross-tabulates contract type against Churn Rate % and Total Revenue, surfacing which contract structures carry the most retention risk at a glance. Trailing decimal formatting was cleaned up here specifically, so the table reads cleanly in a boardroom setting rather than looking like a raw data export.
+| Finding | Detail |
+|---|---|
+| Contract type drives churn | Month-to-Month churn was 66.00 percent, while annual contracts churned at 0.00 percent |
+| Support issues link to cash flow | Billing Issues and Network Outages made up 80 percent of complaints, tied to 7.98 thousand dollars overdue and 9.32 thousand dollars unpaid |
+| Legacy network is the bottleneck | 3G connections showed higher latency and more dropped calls than 4G and 5G |
 
----
+## 9. Recommendations
+1. **Move Month-to-Month customers to annual plans:** offer pricing incentives ahead of the next billing cycle.
+2. **Retire remaining 3G infrastructure:** migrate users to 4G or 5G to remove the source of outages and dropped calls.
+3. **Target collections at billing complaints:** focus recovery on the accounts behind the 7.98 thousand dollar overdue balance.
 
-## 10 Total Tickets Count
+## 10. Conclusion
+Fixing the date and category errors in Power Query, modeling the tables as a star schema and writing explicit DAX measures made it possible to trace service failures to their financial impact.
 
-A single KPI card displays the Total Tickets measure as a running health check on support volume. Category labels were switched off in favor of bold custom formatting, keeping the card focused on the one number that matters at a glance.
-
----
-
-## 11 Signup Date, Dropped Call Count and Average Latency
-
-Dropped call counts and average latency are plotted together on a shared timeline, unlocked from their default axis pairing so both series render clearly in bold, high contrast colors. Seeing both metrics move together over time makes it possible to pinpoint exactly when network quality started to slip, rather than noticing the decline only after complaints pile up.
-
----
-
-## 12 Key Findings & Insights
-
-- **Contract type is the clearest churn signal in the data.** Month-to-month customers churned at 66.00 percent, while customers on annual contracts churned at 0.00 percent. Contract length alone separates the highest-risk customers from the safest ones.
-- **Support tickets and revenue leakage are directly linked.** Billing issues and network outages together account for 80 percent of all complaints, and trace directly to 7.98 thousand dollars in overdue revenue and 9.32 thousand dollars in unpaid bills.
-- **Legacy network infrastructure is an operational bottleneck.** Remaining 3G connections show noticeably higher latency and more dropped calls than 4G and 5G, tying older infrastructure directly to the service failures driving those complaints.
-
----
-
-## 13 Recommendations
-
-1. **Migrate high-risk accounts off month-to-month plans.** Offer proactive pricing incentives to move month-to-month customers onto annual contracts ahead of their next billing cycle.
-2. **Retire remaining 3G infrastructure.** Prioritize migrating the last 3G users onto 4G or 5G to address dropped calls and latency at the source, rather than continuing to handle the complaints they generate.
-3. **Target collections at billing-related complaints first.** Focus recovery outreach on accounts flagged under billing issues, where the 7.98 thousand dollar overdue balance is concentrated.
-
----
-
-## 14 Conclusion
-
-This project turned three disconnected telecom data sources into one coherent diagnostic tool. Fixing the underlying date and category errors in Power Query, building a proper star schema, and writing explicit DAX measures made it possible to trace a technical failure all the way through to its financial impact, giving leadership a clear, evidence backed starting point for reducing churn and recovering revenue.
