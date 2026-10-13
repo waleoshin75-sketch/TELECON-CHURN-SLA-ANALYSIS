@@ -19,8 +19,8 @@ Unified billing, network and support data into one Power BI model that links ser
 4. [Data Cleaning and Error Correction](#4-data-cleaning-and-error-correction)
 5. [Feature Engineering and DAX](#5-feature-engineering-and-dax)
 6. [Data Modeling](#6-data-modeling)
-7. [Data Visualization and Interpretation](#7-data visualization-and-interpretation)
-8. [Key Findings and Insights](#8-key-findings_and_isnights)
+7. [Dashboard Analysis](#7-dashboard-analysis)
+8. [Key Findings and Insights](#8-key-findings-and-isnights)
 9. [Recommendations](#9-recommendations)
 10. [Conclusion](#10-conclusion)
 
