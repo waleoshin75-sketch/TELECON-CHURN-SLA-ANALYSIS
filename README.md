@@ -119,15 +119,13 @@ Star schema with `Customer_Directory` as the single dimension and three one-to-m
 
 **Executive KPIs**
 
-<!-- <img width="2400" height="1350" alt="telecom-executive-kpis" src="https://github.com/user-attachments/assets/a649ebb5-5fb1-458a-b706-10287fcca604" />
- -->
+<img width="2400" height="1350" alt="telecom-executive-kpis" src="https://github.com/user-attachments/assets/eeb1875e-2644-4011-95e8-311cba151708" />
 
 Total revenue is $44,229 with a 33.17% churn rate. Month-to-month contracts churn at 66.00%.
 
 **Service Performance and SLA Degradation Tracker**
 
-<!-- <img width="2400" height="1350" alt="telecom-business-performance" src="https://github.com/user-attachments/assets/53c63d10-3a1c-4a6a-8a95-23327d0a2616" />
- -->
+<img width="2400" height="1350" alt="telecom-business-performance" src="https://github.com/user-attachments/assets/913af907-bb45-4aa1-8c9e-9c8a7b5b47ec" />
 
 ## 9. Key Findings
 
