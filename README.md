@@ -103,7 +103,7 @@ Star schema with `Customer_Directory` as the single dimension and three one-to-m
 | `Service_Performance[CustomerID]` | `Customer_Directory[CustomerID]` |
 | `Support_Tickets[CustomerID]` | `Customer_Directory[CustomerID]` |
 
-<img width="959" height="503" alt="Power BI model view showing Customer_Directory connected to Billing_Revenue, Service_Performance and Support_Tickets" src="https://github.com/user-attachments/assets/d58ff5b5-5820-45dd-b9fb-5b6942493520" />
+<img width="889" height="332" alt="image" src="https://github.com/user-attachments/assets/5ccf8c18-3c85-4408-a072-be34f189b8e9" />
 
 ## 7. Business Objectives
 
